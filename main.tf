@@ -10,7 +10,7 @@ module "label" {
 }
 
 module "kops_metadata" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.1"
+  source       = "git::https://github.com/smartlook/terraform-aws-kops-data-network.git?ref=0.11/master"
   enabled      = "${var.enabled}"
   cluster_name = "${var.cluster_name}"
   vpc_id       = "${var.vpc_id}"
@@ -44,7 +44,7 @@ module "efs" {
   name               = "${var.name}"
   aws_region         = "${var.region}"
   vpc_id             = "${module.kops_metadata.vpc_id}"
-  subnets            = ["${module.kops_metadata.private_subnet_ids}"]
+  subnets            = ["${module.kops_metadata.utility_subnet_ids}"]
   availability_zones = ["${var.availability_zones}"]
   security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
   zone_id            = "${var.zone_id}"
