@@ -99,3 +99,8 @@ variable "iam_role_max_session_duration" {
   default     = 3600
   description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
 }
+
+variable "allow_assume_iam_role" {
+  default     = ""
+  description = "IAM role that should be allowed to assume the newly created IAM role with access to EFS"
+}

@@ -9,6 +9,7 @@
 | enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
 | encrypted | If true, the disk will be encrypted | string | `false` | no |
 | iam_role_max_session_duration | The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours | string | `3600` | no |
+| allow_assume_iam_role | Custom IAM role that should be allowed to assime iam role with EFS access. Defaults to Kops masters and nodes IAM roles. | string | - | no |
 | name | Name (e.g. `efs-provider`) | string | `efs-provider` | no |
 | namespace | Namespace (e.g. `eg` or `cp`) | string | - | yes |
 | performance_mode | The file system performance mode. Can be either `generalPurpose` or `maxIO` | string | `generalPurpose` | no |

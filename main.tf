@@ -55,6 +55,15 @@ module "efs" {
   provisioned_throughput_in_mibps = "${var.provisioned_throughput_in_mibps}"
 }
 
+locals {
+  iam_roles_kops = [
+    "${module.kops_iam_metadata.masters_role_arn}",
+    "${module.kops_iam_metadata.nodes_role_arn}",
+  ]
+  iam_roles_custom     = "${compact(list(var.allow_assume_iam_role))}"
+  iam_roles_for_assume = "${coalescelist(local.iam_roles_custom, local.iam_roles_kops)}"
+}
+
 data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = [
@@ -69,10 +78,7 @@ data "aws_iam_policy_document" "assume_role" {
     principals {
       type = "AWS"
 
-      identifiers = [
-        "${module.kops_iam_metadata.masters_role_arn}",
-        "${module.kops_iam_metadata.nodes_role_arn}",
-      ]
+      identifiers = ["${local.iam_roles_for_assume}"]
     }
 
     effect = "Allow"
